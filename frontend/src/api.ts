@@ -80,6 +80,31 @@ export interface HintResult {
   airlines: Airline[];
 }
 
+export interface LeaderboardEntry {
+  name: string;
+  score: number;
+  ts: number;
+  mode: Mode;
+}
+
+export interface LeaderboardResult {
+  configured: boolean;
+  entries: LeaderboardEntry[];
+  window_days?: number;
+}
+
+export interface NamesResult {
+  configured: boolean;
+  names: string[];
+}
+
+export interface SubmitResult {
+  name: string;
+  mode: Mode;
+  score: number;
+  improved: boolean;
+}
+
 // In dev, leave empty so Vite's proxy handles `/api/*`.
 // In prod, set VITE_API_BASE_URL to the backend's public origin (no trailing slash).
 const API_BASE = (import.meta.env.VITE_API_BASE_URL ?? "").replace(/\/$/, "");
@@ -95,6 +120,14 @@ async function http<T>(path: string, body?: unknown): Promise<T> {
     throw new Error(`${res.status}: ${detail}`);
   }
   return (await res.json()) as T;
+}
+
+function qs(params: Record<string, string | number | undefined>) {
+  const u = new URLSearchParams();
+  for (const [k, v] of Object.entries(params)) {
+    if (v !== undefined && v !== "") u.set(k, String(v));
+  }
+  return u.toString();
 }
 
 export const api = {
@@ -116,4 +149,10 @@ export const api = {
   routes: (req: { group_id: string; a: string; b: string; mode: Mode; k?: number }) =>
     http<RoutesResult>("/api/routes", req),
   hint: (group_id: string) => http<HintResult>("/api/hint", { group_id }),
+  leaderboard: (mode: Mode, limit = 20) =>
+    http<LeaderboardResult>(`/api/leaderboard?${qs({ mode, limit })}`),
+  leaderboardNames: (q: string) =>
+    http<NamesResult>(`/api/leaderboard/names?${qs({ q })}`),
+  submitScore: (name: string, score: number, mode: Mode) =>
+    http<SubmitResult>("/api/leaderboard", { name, score, mode }),
 };

@@ -10,5 +10,8 @@ export default defineConfig({
     proxy: {
       "/api": "http://127.0.0.1:8765",
     },
+    allowedHosts: [
+      "jtattersall09403-vscode-tunnel.tools.analytical-platform.service.justice.gov.uk"
+    ],
   },
 });

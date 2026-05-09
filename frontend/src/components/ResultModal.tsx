@@ -1,6 +1,7 @@
 import { useState } from "react";
-import type { Question, ResolvedLeg, RouteSummary, ValidateResult } from "../api";
+import type { Mode, Question, ResolvedLeg, RouteSummary, ValidateResult } from "../api";
 import { WorldMap } from "./WorldMap";
+import { Leaderboard } from "./Leaderboard";
 
 interface Props {
   question: Question;
@@ -10,6 +11,9 @@ interface Props {
   routes?: RouteSummary[];
   totalScore: number;
   isGameOver: boolean;
+  /** Player name + mode, used to highlight their row on the post-game board. */
+  username: string;
+  mode: Mode;
   onClose: () => void;
 }
 
@@ -19,6 +23,8 @@ export function ResultModal({
   routes,
   totalScore,
   isGameOver,
+  username,
+  mode,
   onClose,
 }: Props) {
   const correct = result.valid;
@@ -39,6 +45,9 @@ export function ResultModal({
     // least renders something useful.
     mapLegs = result.legs;
   }
+
+  // Show leaderboard whenever this run ended (won the whole thing or lost).
+  const finalScreen = isGameOver || (correct && question.level >= 10);
 
   return (
     <div className="modal-backdrop" onMouseDown={onClose}>
@@ -103,6 +112,14 @@ export function ResultModal({
             routes={routes}
             selected={selectedRoute}
             onSelect={setSelectedRoute}
+          />
+        )}
+
+        {finalScreen && (
+          <Leaderboard
+            initialMode={mode}
+            highlightName={username}
+            title="Leaderboard — your run is in"
           />
         )}
 

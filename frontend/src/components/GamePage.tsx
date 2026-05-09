@@ -92,8 +92,17 @@ export function GamePage({
       });
       setResult(r);
       if (r.valid) {
-        setScore((s) => s + r.points);
+        const newScore = score + r.points;
+        setScore(newScore);
+        // If they just cleared L10, submit final score now (game over by win).
+        if (level >= 10) {
+          api.submitScore(username, newScore, mode).catch(() => {});
+        }
       } else {
+        // Game over by loss -> submit current score.
+        if (score > 0) {
+          api.submitScore(username, score, mode).catch(() => {});
+        }
         // Fetch the K shortest valid routings so the player can study them.
         try {
           const rr = await api.routes({
@@ -179,6 +188,9 @@ export function GamePage({
           <>
             <div className="panel question">
               <div className="question__group">Level {question.level}</div>
+              <div className="question__intro">
+                How can you get from…
+              </div>
               <div className="question__route">
                 <Airport q={question} which="a" />
                 <span className="question__arrow">→</span>
@@ -264,6 +276,8 @@ export function GamePage({
           routes={routes?.routes}
           totalScore={score}
           isGameOver={isGameOver}
+          username={username}
+          mode={mode}
           onClose={closeModal}
         />
       )}
