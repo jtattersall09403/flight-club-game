@@ -1,0 +1,590 @@
+/* Theme tokens — change these to recolor the app. */
+:root {
+  --color-bg: #030914;
+  --color-bg-2: #07142a;
+  --color-panel: rgba(10, 30, 60, 0.55);
+  --color-panel-edge: rgba(80, 200, 255, 0.35);
+  --color-grid: rgba(80, 200, 255, 0.08);
+
+  --color-text: #e6f4ff;
+  --color-text-dim: #7da9c9;
+  --color-text-faint: #486b85;
+
+  --color-accent: #4ad7ff; /* primary glow */
+  --color-accent-2: #38f0c0;
+  --color-warn: #ffb84a;
+  --color-bad: #ff4f7a;
+  --color-good: #38f0c0;
+
+  --glow-soft: 0 0 12px rgba(74, 215, 255, 0.35);
+  --glow-strong: 0 0 24px rgba(74, 215, 255, 0.6),
+    0 0 60px rgba(74, 215, 255, 0.25);
+
+  --radius: 6px;
+  --radius-lg: 10px;
+
+  --font-display: "Orbitron", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Rajdhani", "Segoe UI", system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 17px;
+  letter-spacing: 0.02em;
+}
+
+body {
+  background:
+    radial-gradient(
+      ellipse at 50% 0%,
+      rgba(74, 215, 255, 0.12) 0%,
+      transparent 60%
+    ),
+    linear-gradient(180deg, var(--color-bg-2) 0%, var(--color-bg) 100%);
+  background-attachment: fixed;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--color-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+  z-index: 0;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  letter-spacing: 0.08em;
+  margin: 0;
+}
+
+button {
+  font-family: var(--font-display);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: transparent;
+  color: var(--color-accent);
+  border: 1px solid var(--color-panel-edge);
+  padding: 12px 22px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition:
+    background 120ms ease,
+    box-shadow 120ms ease,
+    border-color 120ms ease,
+    color 120ms ease;
+  box-shadow: var(--glow-soft);
+}
+button:hover:not(:disabled) {
+  background: rgba(74, 215, 255, 0.1);
+  border-color: var(--color-accent);
+  box-shadow: var(--glow-strong);
+}
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+button.primary {
+  background: rgba(74, 215, 255, 0.12);
+  color: var(--color-text);
+  border-color: var(--color-accent);
+  box-shadow: var(--glow-strong);
+}
+button.ghost {
+  border-color: transparent;
+  box-shadow: none;
+  color: var(--color-text-dim);
+}
+button.ghost:hover:not(:disabled) {
+  color: var(--color-accent);
+  border-color: var(--color-panel-edge);
+  background: transparent;
+  box-shadow: var(--glow-soft);
+}
+button.danger {
+  color: var(--color-bad);
+  border-color: rgba(255, 79, 122, 0.4);
+}
+
+input,
+.combobox-input {
+  font-family: var(--font-body);
+  font-size: 16px;
+  background: rgba(2, 10, 24, 0.7);
+  color: var(--color-text);
+  border: 1px solid var(--color-panel-edge);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  outline: none;
+  width: 100%;
+  transition: box-shadow 120ms ease, border-color 120ms ease;
+}
+input:focus,
+.combobox-input:focus-within {
+  border-color: var(--color-accent);
+  box-shadow: var(--glow-soft);
+}
+
+.panel {
+  background: var(--color-panel);
+  border: 1px solid var(--color-panel-edge);
+  border-radius: var(--radius-lg);
+  box-shadow:
+    inset 0 0 24px rgba(74, 215, 255, 0.05),
+    0 0 32px rgba(2, 10, 24, 0.8);
+  backdrop-filter: blur(6px);
+}
+
+.label {
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+}
+
+.kbd {
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--color-accent);
+}
+
+a {
+  color: var(--color-accent);
+}
+
+/* Landing */
+
+.landing {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+}
+.landing__inner {
+  width: 100%;
+  max-width: 560px;
+  text-align: center;
+  padding: 48px 36px;
+}
+.landing__title {
+  font-size: 46px;
+  font-weight: 900;
+  background: linear-gradient(
+    180deg,
+    var(--color-text) 0%,
+    var(--color-accent) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 40px rgba(74, 215, 255, 0.3);
+  margin-bottom: 8px;
+}
+.landing__sub {
+  color: var(--color-text-dim);
+  margin: 0 0 32px 0;
+  letter-spacing: 0.08em;
+}
+.landing__form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: stretch;
+}
+.mode-toggle {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+.mode-toggle__btn {
+  flex: 1;
+  padding: 10px;
+  font-size: 12px;
+}
+.mode-toggle__btn[aria-pressed="true"] {
+  background: rgba(74, 215, 255, 0.18);
+  border-color: var(--color-accent);
+  color: var(--color-text);
+  box-shadow: var(--glow-strong);
+}
+
+/* Game */
+
+.game {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.hud {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--color-panel-edge);
+  background: rgba(2, 8, 20, 0.7);
+  gap: 16px;
+}
+.hud__left,
+.hud__right {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+.hud__user {
+  font-family: var(--font-display);
+  letter-spacing: 0.16em;
+  color: var(--color-text);
+}
+.hud__stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.hud__stat-value {
+  font-family: var(--font-display);
+  color: var(--color-accent);
+  font-size: 20px;
+  text-shadow: var(--glow-soft);
+}
+
+.game__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 24px;
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+}
+.question {
+  padding: 28px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.question__group {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  color: var(--color-accent);
+  text-transform: uppercase;
+  text-shadow: var(--glow-soft);
+}
+.question__on {
+  font-size: 26px;
+  color: var(--color-text-dim);
+  letter-spacing: 0.04em;
+  font-family: var(--font-display);
+  font-weight: 500;
+}
+.question__on strong {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 28px;
+  letter-spacing: 0.18em;
+  color: var(--color-text);
+  text-shadow: var(--glow-soft);
+  margin-left: 6px;
+}
+.question__route {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  font-size: 22px;
+}
+.question__airport {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 28px;
+  color: var(--color-text);
+  text-shadow: var(--glow-soft);
+}
+.question__airport-meta {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--color-text-dim);
+  letter-spacing: 0.04em;
+  margin-top: 2px;
+  font-weight: 400;
+}
+.question__arrow {
+  color: var(--color-accent);
+  font-size: 24px;
+}
+.question__meta {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  color: var(--color-text-dim);
+  font-size: 14px;
+  letter-spacing: 0.04em;
+}
+.question__meta strong {
+  color: var(--color-accent);
+  font-family: var(--font-display);
+}
+
+/* Legs builder */
+
+.legs {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.legs__row {
+  display: grid;
+  grid-template-columns: 36px 1fr auto 1fr 1fr 36px;
+  gap: 10px;
+  align-items: center;
+}
+.legs__idx {
+  font-family: var(--font-display);
+  color: var(--color-text-faint);
+  text-align: center;
+}
+.legs__arrow {
+  color: var(--color-accent);
+  text-align: center;
+}
+.legs__remove {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--color-bad);
+  padding: 6px 10px;
+  box-shadow: none;
+  font-size: 16px;
+}
+.legs__remove:hover:not(:disabled) {
+  border-color: var(--color-bad);
+  background: rgba(255, 79, 122, 0.1);
+  box-shadow: 0 0 10px rgba(255, 79, 122, 0.4);
+}
+.legs__actions {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+/* Combobox */
+.combobox {
+  position: relative;
+}
+.combobox__list {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  max-height: 260px;
+  overflow-y: auto;
+  background: rgba(3, 14, 30, 0.98);
+  border: 1px solid var(--color-panel-edge);
+  border-radius: var(--radius);
+  box-shadow: var(--glow-soft);
+  padding: 4px 0;
+}
+.combobox__option {
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.combobox__option:hover,
+.combobox__option[aria-selected="true"] {
+  background: rgba(74, 215, 255, 0.14);
+  color: var(--color-text);
+}
+.combobox__opt-iata {
+  font-family: var(--font-display);
+  color: var(--color-accent);
+  margin-right: 8px;
+}
+.combobox__opt-meta {
+  color: var(--color-text-dim);
+  font-size: 12px;
+}
+
+/* Modal */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 6, 14, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  backdrop-filter: blur(4px);
+}
+.modal {
+  width: min(900px, 95vw);
+  max-height: 92vh;
+  overflow: auto;
+  padding: 28px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.modal__title {
+  font-size: 28px;
+  letter-spacing: 0.18em;
+}
+.modal__title.good {
+  color: var(--color-good);
+  text-shadow: 0 0 24px rgba(56, 240, 192, 0.5);
+}
+.modal__title.bad {
+  color: var(--color-bad);
+  text-shadow: 0 0 24px rgba(255, 79, 122, 0.5);
+}
+.modal__pts {
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: var(--color-accent);
+  letter-spacing: 0.16em;
+}
+.modal__map {
+  border: 1px solid var(--color-panel-edge);
+  border-radius: var(--radius);
+  background: rgba(2, 8, 20, 0.6);
+}
+.modal__legs {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--color-text-dim);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.modal__legs strong {
+  color: var(--color-text);
+  font-family: var(--font-display);
+  margin-right: 8px;
+}
+.modal__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+/* Hint pill */
+.hint-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+.hint-pill {
+  border: 1px solid var(--color-panel-edge);
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--color-text-dim);
+  background: rgba(74, 215, 255, 0.05);
+}
+.hint-pill strong {
+  color: var(--color-accent);
+  font-family: var(--font-display);
+  margin-right: 6px;
+}
+
+/* Errors */
+.error-text {
+  color: var(--color-bad);
+  font-size: 14px;
+}
+
+/* Routes table (modal) */
+.routes-table {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.routes-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  border: 1px solid var(--color-panel-edge);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.routes-table thead th {
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-align: left;
+  color: var(--color-text-faint);
+  padding: 8px 12px;
+  background: rgba(2, 8, 20, 0.6);
+  border-bottom: 1px solid var(--color-panel-edge);
+}
+.routes-table tbody tr {
+  cursor: pointer;
+  transition: background 100ms ease;
+  outline: none;
+}
+.routes-table tbody tr:hover,
+.routes-table tbody tr:focus-visible {
+  background: rgba(74, 215, 255, 0.08);
+}
+.routes-table tbody tr.is-selected {
+  background: rgba(74, 215, 255, 0.18);
+  box-shadow: inset 3px 0 0 var(--color-accent);
+}
+.routes-table tbody td {
+  padding: 8px 12px;
+  border-bottom: 1px solid rgba(74, 215, 255, 0.08);
+  vertical-align: top;
+  color: var(--color-text);
+}
+.routes-table tbody tr:last-child td {
+  border-bottom: none;
+}
+.route-path {
+  display: block;
+  font-family: var(--font-display);
+  letter-spacing: 0.1em;
+  color: var(--color-text);
+}
+.route-airlines {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--color-text-dim);
+  margin-top: 2px;
+  font-family: var(--font-display);
+}
