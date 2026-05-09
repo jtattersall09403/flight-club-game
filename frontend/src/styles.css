@@ -726,9 +726,7 @@ a {
     flex: 1 1 auto;
     min-width: 0;
   }
-  .hud__right {
-    justify-content: flex-end;
-  }
+
   .hud__user { font-size: 13px; }
   .hud__stat-value { font-size: 16px; }
   .hud .label { font-size: 9px; }
