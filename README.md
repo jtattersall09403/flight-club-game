@@ -1,5 +1,9 @@
 # ✈️ Jack's Flight Club
 
+![Jack's Flight Club — Landing screen](docs/images/landing-screen.png)
+
+![Jack's Flight Club — In-game screen](docs/images/game-screen.png)
+
 **Think you can route like an airline ops controller?**
 
 Jack’s Flight Club is a fast, high-pressure aviation puzzle where each round drops you between two airports and a global alliance challenge. Your job: build a valid multi-leg route using alliance member airlines before your streak breaks.
