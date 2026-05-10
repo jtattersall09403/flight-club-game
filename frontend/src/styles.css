@@ -208,6 +208,39 @@ a {
 .landing__hint strong {
   color: var(--color-accent);
 }
+.landing__name-field {
+  position: relative;
+}
+.landing__name-input {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.landing__name-list {
+  top: 100%;
+  border-top: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  margin-top: 0;
+  background: linear-gradient(180deg, rgba(4, 17, 36, 0.98), rgba(3, 14, 30, 0.98));
+  box-shadow: 0 10px 22px rgba(2, 10, 24, 0.75), inset 0 1px 0 rgba(74, 215, 255, 0.14);
+}
+.landing__name-list .combobox__option {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+.landing__name-options {
+  list-style: none;
+  margin: 0;
+  padding: 4px 0;
+}
+.landing__name-footer {
+  border-top: 1px solid rgba(74, 215, 255, 0.2);
+  padding: 8px 12px;
+  margin-top: 0;
+  background: rgba(74, 215, 255, 0.06);
+}
 .landing__title {
   font-size: 46px;
   font-weight: 900;
