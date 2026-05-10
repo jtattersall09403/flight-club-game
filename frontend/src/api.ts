@@ -131,6 +131,7 @@ function qs(params: Record<string, string | number | undefined>) {
 }
 
 export const api = {
+  health: () => http<{ status: string; nodes: number; groups: number }>("/api/health"),
   airports: () => http<Airport[]>("/api/airports"),
   airlines: () => http<Airline[]>("/api/airlines"),
   question: (level: number, mode: Mode) =>
