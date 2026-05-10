@@ -130,7 +130,7 @@ export function LandingPage({ onStart }: Props) {
                 aria-pressed={mode === "hard"}
                 onClick={() => setMode("hard")}
               >
-                Hard (IATA only)
+                Hard
               </button>
             </div>
           </div>
