@@ -39,6 +39,7 @@ export function GamePage({
   const [routes, setRoutes] = useState<RoutesResult | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loadingQ, setLoadingQ] = useState(false);
+  const [restartToken, setRestartToken] = useState(0);
 
   // Fetch a new question whenever the level changes.
   useEffect(() => {
@@ -65,7 +66,7 @@ export function GamePage({
     return () => {
       alive = false;
     };
-  }, [level, mode]);
+  }, [level, mode, restartToken]);
 
   const isComplete = useMemo(
     () =>
@@ -137,6 +138,7 @@ export function GamePage({
 
   function closeModal() {
     if (!result) return;
+    setResult(null);
     if (result.valid) {
       if (level >= 10) {
         // Victory -> back to landing.
@@ -148,6 +150,7 @@ export function GamePage({
       // Lost -> reset to level 1 and clear score.
       setScore(0);
       setLevel(1);
+      setRestartToken((t) => t + 1);
     }
   }
 

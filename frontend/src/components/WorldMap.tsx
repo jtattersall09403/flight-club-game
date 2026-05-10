@@ -74,6 +74,31 @@ function fitProjection(
   return { center: [centerLon, centerLat], scale };
 }
 
+
+function splitAtAntimeridian(
+  from: [number, number],
+  to: [number, number],
+): Array<[[number, number], [number, number]]> {
+  const [lon1, lat1] = from;
+  const [lon2, lat2] = to;
+  const dLon = lon2 - lon1;
+
+  if (Math.abs(dLon) <= 180) {
+    return [[from, to]];
+  }
+
+  const crossingLon = dLon > 0 ? 180 : -180;
+  const wrappedLon2 = dLon > 0 ? lon2 - 360 : lon2 + 360;
+  const t = (crossingLon - lon1) / (wrappedLon2 - lon1);
+  const crossingLat = lat1 + (lat2 - lat1) * t;
+  const oppositeLon = crossingLon === 180 ? -180 : 180;
+
+  return [
+    [[lon1, lat1], [crossingLon, crossingLat]],
+    [[oppositeLon, crossingLat], [lon2, lat2]],
+  ];
+}
+
 export function WorldMap({
   endpoints,
   legs,
@@ -119,6 +144,17 @@ export function WorldMap({
     [scale, center[0], center[1]],
   );
 
+  const drawableSegments = useMemo(
+    () =>
+      drawableLegs.flatMap((l) =>
+        splitAtAntimeridian(
+          [l.src_lon as number, l.src_lat as number],
+          [l.dst_lon as number, l.dst_lat as number],
+        ),
+      ),
+    [drawableLegs],
+  );
+
   return (
     <div className="modal__map" style={{ height }}>
       <ComposableMap
@@ -149,11 +185,11 @@ export function WorldMap({
           }
         </Geographies>
 
-        {drawableLegs.map((l, i) => (
+        {drawableSegments.map(([from, to], i) => (
           <Line
             key={i}
-            from={[l.src_lon as number, l.src_lat as number]}
-            to={[l.dst_lon as number, l.dst_lat as number]}
+            from={from}
+            to={to}
             stroke={strokeColor}
             strokeWidth={1.6}
             strokeLinecap="round"
