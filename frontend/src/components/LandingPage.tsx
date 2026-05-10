@@ -74,30 +74,40 @@ export function LandingPage({ onStart }: Props) {
               maxLength={24}
               autoComplete="off"
             />
-            {showMatches && matches.length > 0 && (
-              <ul className="combobox__list landing__name-list" role="listbox">
-                {matches.map((m) => (
-                  <li
-                    key={m}
-                    className="combobox__option"
-                    role="option"
-                    onMouseDown={(e) => {
-                      e.preventDefault();
-                      setUsername(m);
-                      setShowMatches(false);
-                    }}
-                  >
-                    <span className="combobox__opt-iata">{m}</span>
-                    <span className="combobox__opt-meta">existing pilot</span>
-                  </li>
-                ))}
-              </ul>
-            )}
-            {trimmed && exactMatch && (
-              <div className="landing__hint" style={{ marginTop: 6 }}>
-                Continuing as <strong>{trimmed}</strong>. If that's not you,
-                choose a different name.
+            {showMatches && matches.length > 0 ? (
+              <div className="combobox__list landing__name-list" role="listbox">
+                <ul className="landing__name-options">
+                  {matches.map((m) => (
+                    <li
+                      key={m}
+                      className="combobox__option"
+                      role="option"
+                      onMouseDown={(e) => {
+                        e.preventDefault();
+                        setUsername(m);
+                        setShowMatches(false);
+                      }}
+                    >
+                      <span className="combobox__opt-iata">{m}</span>
+                      <span className="combobox__opt-meta">existing pilot</span>
+                    </li>
+                  ))}
+                </ul>
+                {trimmed && exactMatch && (
+                  <div className="landing__hint landing__name-footer">
+                    Continuing as <strong>{trimmed}</strong>. If that's not you,
+                    choose a different name.
+                  </div>
+                )}
               </div>
+            ) : (
+              trimmed &&
+              exactMatch && (
+                <div className="landing__hint" style={{ marginTop: 6 }}>
+                  Continuing as <strong>{trimmed}</strong>. If that's not you,
+                  choose a different name.
+                </div>
+              )
             )}
           </div>
 
