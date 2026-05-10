@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import type { Mode, Question, ResolvedLeg, RouteSummary, ValidateResult } from "../api";
 import { WorldMap } from "./WorldMap";
 import { Leaderboard } from "./Leaderboard";
@@ -30,6 +30,11 @@ export function ResultModal({
   const correct = result.valid;
   const [selectedRoute, setSelectedRoute] = useState(0);
 
+  const sortedRoutes = useMemo(() => {
+    if (!routes) return undefined;
+    return [...routes].sort((a, b) => a.stops - b.stops || a.total_km - b.total_km);
+  }, [routes]);
+
   const endpoints = [
     { iata: question.a, lat: question.a_lat, lon: question.a_lon },
     { iata: question.b, lat: question.b_lat, lon: question.b_lon },
@@ -38,8 +43,8 @@ export function ResultModal({
   let mapLegs: ResolvedLeg[];
   if (correct) {
     mapLegs = result.legs;
-  } else if (routes && routes.length > 0) {
-    mapLegs = routes[selectedRoute]?.legs ?? routes[0].legs;
+  } else if (sortedRoutes && sortedRoutes.length > 0) {
+    mapLegs = sortedRoutes[selectedRoute]?.legs ?? sortedRoutes[0].legs;
   } else {
     // Fallback: show the user's submitted (broken) routing so the map at
     // least renders something useful.
@@ -85,10 +90,10 @@ export function ResultModal({
         <div className="label">
           {correct
             ? `Your routing — ${result.stops} stop${result.stops === 1 ? "" : "s"} (min ${result.min_stops})`
-            : routes && routes.length > 0
+            : sortedRoutes && sortedRoutes.length > 0
               ? selectedRoute === 0
-                ? "Shortest valid routing (by great-circle distance)"
-                : `Routing #${selectedRoute + 1} by distance`
+                ? "Valid routing with minimum stops (shortest among ties)"
+                : `Routing #${selectedRoute + 1} by stops, then distance`
               : "Your routing"}
         </div>
 
@@ -107,9 +112,9 @@ export function ResultModal({
           ))}
         </div>
 
-        {!correct && routes && routes.length > 0 && (
+        {!correct && sortedRoutes && sortedRoutes.length > 0 && (
           <RoutesTable
-            routes={routes}
+            routes={sortedRoutes}
             selected={selectedRoute}
             onSelect={setSelectedRoute}
           />
