@@ -979,3 +979,17 @@ a {
   .routes-table table { font-size: 12px; }
   .routes-table thead th, .routes-table tbody td { padding: 6px 8px; }
 }
+
+
+.landing__footer {
+  width: 100%;
+  max-width: 560px;
+  margin: 6px auto 0;
+  text-align: center;
+  color: var(--color-text-dim);
+  font-size: 13px;
+}
+
+.landing__footer a {
+  font-weight: 700;
+}

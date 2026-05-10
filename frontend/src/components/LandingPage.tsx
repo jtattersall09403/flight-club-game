@@ -149,6 +149,17 @@ export function LandingPage({ onStart }: Props) {
       <div className="landing__board">
         <Leaderboard initialMode={mode} highlightName={trimmed} />
       </div>
+
+      <footer className="landing__footer">
+        Flight data credit:{" "}
+        <a
+          href="https://github.com/jpatokal/openflights"
+          target="_blank"
+          rel="noreferrer"
+        >
+          OpenFlights on GitHub
+        </a>
+      </footer>
     </div>
   );
 }
