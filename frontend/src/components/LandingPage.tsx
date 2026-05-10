@@ -149,6 +149,18 @@ export function LandingPage({ onStart }: Props) {
       <div className="landing__board">
         <Leaderboard initialMode={mode} highlightName={trimmed} />
       </div>
+
+      <footer className="landing__footer">
+        Flight data credit:{" "}
+        <a
+          href="https://github.com/Jonty/airline-route-data"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Jonty/airline-route-data
+        </a>
+        <span> (uses FlightsFrom; OpenFlights backup)</span>
+      </footer>
     </div>
   );
 }
