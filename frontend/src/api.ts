@@ -150,7 +150,7 @@ export const api = {
     http<RoutesResult>("/api/routes", req),
   hint: (group_id: string) => http<HintResult>("/api/hint", { group_id }),
   leaderboard: (mode: Mode, limit = 20) =>
-    http<LeaderboardResult>(`/api/leaderboard?${qs({ mode, limit })}`),
+    http<LeaderboardResult>(`/api/leaderboard?${qs({ mode, limit, window_days: 0 })}`),
   leaderboardNames: (q: string) =>
     http<NamesResult>(`/api/leaderboard/names?${qs({ q })}`),
   submitScore: (name: string, score: number, mode: Mode) =>
