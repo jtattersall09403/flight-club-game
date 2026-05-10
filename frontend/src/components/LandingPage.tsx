@@ -153,12 +153,13 @@ export function LandingPage({ onStart }: Props) {
       <footer className="landing__footer">
         Flight data credit:{" "}
         <a
-          href="https://github.com/jpatokal/openflights"
+          href="https://github.com/Jonty/airline-route-data"
           target="_blank"
           rel="noreferrer"
         >
-          OpenFlights on GitHub
+          Jonty/airline-route-data
         </a>
+        <span> (uses FlightsFrom; OpenFlights backup)</span>
       </footer>
     </div>
   );

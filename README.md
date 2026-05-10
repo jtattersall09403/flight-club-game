@@ -17,11 +17,14 @@ Jack’s Flight Club is a fast, high-pressure aviation puzzle where each round d
 
 ## 📡 Data source credit (important)
 
-This project uses aviation reference data sourced from:
+**Primary source:**
+- **airline-route-data (GitHub):** https://github.com/Jonty/airline-route-data
 
-**OpenFlights (GitHub):** https://github.com/jpatokal/openflights
+**Upstream/fallback source:**
+- **OpenFlights (GitHub):** https://github.com/jpatokal/openflights
 
-Huge credit to the OpenFlights project and contributors for maintaining openly accessible airport/airline data that makes this game possible.
+Major credit to **Jonty/airline-route-data** as the main dataset used by this project.
+That dataset in turn pulls from FlightsFrom, with OpenFlights used as a backup source.
 
 ---
 
