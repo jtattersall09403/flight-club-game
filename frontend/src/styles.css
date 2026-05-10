@@ -709,6 +709,30 @@ a {
   text-transform: uppercase;
 }
 
+.leaderboard__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  margin-top: 0;
+}
+
+.leaderboard__table th,
+.leaderboard__table td {
+  padding: 8px 10px;
+  text-align: center;
+  border-bottom: 1px solid rgba(74, 215, 255, 0.08);
+}
+
+.leaderboard__table th {
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-text-faint);
+  background: rgba(2, 8, 20, 0.6);
+  border-bottom: 1px solid var(--color-panel-edge);
+}
+
 /* ----------------------------------------------------------- mobile */
 @media (max-width: 720px) {
   body { font-size: 16px; }
