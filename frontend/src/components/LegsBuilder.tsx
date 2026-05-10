@@ -271,7 +271,21 @@ function PickerSheet({
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return options.slice(0, 100);
-    return options.filter((o) => o.label.toLowerCase().startsWith(q) || o.searchKey.includes(q)).slice(0, 100);
+
+    const exact: ComboOption[] = [];
+    const prefix: ComboOption[] = [];
+    const contains: ComboOption[] = [];
+
+    for (const o of options) {
+      const label = o.label.toLowerCase();
+      if (label === q) exact.push(o);
+      else if (label.startsWith(q)) prefix.push(o);
+      else if (o.searchKey.includes(q)) contains.push(o);
+
+      if (exact.length + prefix.length + contains.length >= 200) break;
+    }
+
+    return [...exact, ...prefix, ...contains].slice(0, 100);
   }, [options, query]);
 
   return (
