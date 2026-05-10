@@ -54,11 +54,12 @@ export function LandingPage({ onStart }: Props) {
             onStart(trimmed, mode);
           }}
         >
-          <div style={{ position: "relative" }}>
+          <div className="landing__name-field">
             <div className="label" style={{ textAlign: "left", marginBottom: 6 }}>
               Your name
             </div>
             <input
+              className="landing__name-input"
               autoFocus
               value={username}
               onChange={(e) => {
@@ -74,7 +75,7 @@ export function LandingPage({ onStart }: Props) {
               autoComplete="off"
             />
             {showMatches && matches.length > 0 && (
-              <ul className="combobox__list" role="listbox">
+              <ul className="combobox__list landing__name-list" role="listbox">
                 {matches.map((m) => (
                   <li
                     key={m}
