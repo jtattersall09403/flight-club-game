@@ -91,9 +91,11 @@ export function GamePage({
         hint_used: hintUsed,
         level,
       });
-      setResult(r);
+      const awardedPoints = mode === "hard" ? r.points * 2 : r.points;
+      const scoredResult = { ...r, points: awardedPoints };
+      setResult(scoredResult);
       if (r.valid) {
-        const newScore = score + r.points;
+        const newScore = score + awardedPoints;
         setScore(newScore);
         // If they just cleared L10, submit final score now (game over by win).
         if (level >= 10) {
