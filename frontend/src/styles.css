@@ -376,43 +376,152 @@ a {
   padding: 20px 24px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 }
-.legs__row {
+.flight-plan {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 10px;
-  align-items: center;
 }
-.legs__idx {
-  font-family: var(--font-display);
-  color: var(--color-text-faint);
-  text-align: center;
-  min-width: 15px;
-}
-.legs__arrow {
-  color: var(--color-accent);
-  text-align: center;
-}
-.legs__remove {
-  background: transparent;
-  border: 1px solid transparent;
-  color: var(--color-bad);
-  padding: 6px 10px;
+.flight-plan__node {
+  width: 100%;
+  text-align: left;
+  padding: 14px;
+  border-radius: var(--radius);
+  border: 1px solid var(--color-panel-edge);
+  background: rgba(2, 8, 20, 0.42);
   box-shadow: none;
-  font-size: 16px;
 }
-.legs__remove:hover:not(:disabled) {
-  border-color: var(--color-bad);
-  background: rgba(255, 79, 122, 0.1);
-  box-shadow: 0 0 10px rgba(255, 79, 122, 0.4);
+.flight-plan__node--endpoint {
+  border-color: rgba(74, 215, 255, 0.5);
+  background: rgba(74, 215, 255, 0.08);
+  cursor: default;
+}
+.flight-plan__node--stopover {
+  background: rgba(56, 240, 192, 0.08);
+}
+.flight-plan__node--empty {
+  border-style: dashed;
+}
+.flight-plan__iata {
+  display: block;
+  font-family: var(--font-display);
+  letter-spacing: 0.12em;
+  font-size: 24px;
+  color: var(--color-text);
+}
+.flight-plan__meta {
+  display: block;
+  font-size: 13px;
+  color: var(--color-text-dim);
+  margin-top: 4px;
+}
+.flight-plan__segment {
+  margin: 8px 0 4px;
+  margin-left: 18px;
+  position: relative;
+  padding-left: 22px;
+}
+.flight-plan__line {
+  position: absolute;
+  left: 0;
+  top: -6px;
+  bottom: -10px;
+  border-left: 2px dashed rgba(74, 215, 255, 0.5);
+}
+.flight-plan__plane {
+  position: absolute;
+  left: -9px;
+  top: 35%;
+  color: var(--color-accent);
+  font-size: 14px;
+  transform: rotate(90deg);
+  animation: planeDrift 2.2s ease-in-out infinite;
+}
+.flight-plan__airline-pill {
+  width: 100%;
+  padding: 10px 12px;
+  text-align: left;
+  border-style: dashed;
+  box-shadow: none;
+  background: rgba(2, 10, 24, 0.62);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.flight-plan__airline-pill small {
+  color: var(--color-text-dim);
+  font-size: 12px;
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+.flight-plan__airline-pill.is-empty {
+  color: var(--color-text-dim);
+}
+.flight-plan__remove-stop {
+  margin-top: 8px;
+  padding: 6px 10px;
+  color: var(--color-bad);
+  border-color: rgba(255, 79, 122, 0.45);
+  box-shadow: none;
 }
 .legs__actions {
   display: flex;
-  gap: 12px;
-  justify-content: space-between;
-  margin-top: 8px;
-  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.picker-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  background: rgba(2, 6, 14, 0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+}
+.picker {
+  width: min(560px, 100%);
+  max-height: 80vh;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.picker__title {
+  font-family: var(--font-display);
+  color: var(--color-accent);
+}
+.picker__list {
+  overflow: auto;
+  max-height: 56vh;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.picker__option {
+  text-align: left;
+  box-shadow: none;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  padding: 10px 12px;
+}
+.picker__option-iata {
+  font-family: var(--font-display);
+  color: var(--color-accent);
+  margin-right: 8px;
+}
+.picker__option-meta {
+  color: var(--color-text-dim);
+  font-size: 12px;
+}
+
+@keyframes planeDrift {
+  0%, 100% { transform: translateY(-6px) rotate(90deg); }
+  50% { transform: translateY(6px) rotate(90deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .flight-plan__plane { animation: none; }
 }
 
 /* Combobox */
@@ -746,23 +855,14 @@ a {
   .question__on strong { font-size: 20px; }
   .question__meta { font-size: 12px; gap: 14px; }
 
-  /* Stack the legs builder vertically so each combobox has full width and
-     the dropdown options are readable. */
   .legs { padding: 14px; gap: 14px; }
-  .legs__row {
-    flex-direction:column;
-    gap: 8px;
-    padding: 12px;
-    border: 1px solid var(--color-panel-edge);
-    border-radius: var(--radius);
-    background: rgba(2, 8, 20, 0.4);
+  .flight-plan__iata { font-size: 20px; }
+  .picker {
+    width: 100vw;
+    max-height: 100vh;
+    height: 100vh;
+    border-radius: 0;
   }
-  .legs__row > .legs__idx { grid-area: idx; text-align: left; }
-  .legs__row > .combobox:nth-of-type(1) { grid-area: src; }
-  .legs__row > .legs__arrow { grid-area: arrow; text-align: center; }
-  .legs__row > .combobox:nth-of-type(2) { grid-area: dst; }
-  .legs__row > .combobox:nth-of-type(3) { grid-area: airline; }
-  .legs__row > .legs__remove { grid-area: remove; justify-self: end; }
 
   .combobox-input { font-size: 16px; padding: 12px 14px; }
   .combobox__list { max-height: 220px; }
