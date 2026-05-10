@@ -57,15 +57,27 @@ export function Combobox({
   const filtered = useMemo(() => {
     const q = text.trim().toLowerCase();
     if (!q) return options.slice(0, maxResults);
-    // Prefer prefix matches on label, then substring matches anywhere.
+
+    // Ranking priority:
+    // 1) exact code/label match (e.g. "sin" -> "SIN"),
+    // 2) label prefix matches,
+    // 3) substring matches in the broader search key.
+    const exact: ComboOption[] = [];
     const prefix: ComboOption[] = [];
     const contains: ComboOption[] = [];
+
     for (const o of options) {
-      if (o.label.toLowerCase().startsWith(q)) prefix.push(o);
+      const label = o.label.toLowerCase();
+      if (label === q) exact.push(o);
+      else if (label.startsWith(q)) prefix.push(o);
       else if (o.searchKey.includes(q)) contains.push(o);
-      if (prefix.length + contains.length >= maxResults * 2) break;
+
+      if (exact.length + prefix.length + contains.length >= maxResults * 2) {
+        break;
+      }
     }
-    return [...prefix, ...contains].slice(0, maxResults);
+
+    return [...exact, ...prefix, ...contains].slice(0, maxResults);
   }, [text, options, maxResults]);
 
   function commit(opt: ComboOption) {
