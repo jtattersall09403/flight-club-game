@@ -4,22 +4,23 @@
 
 ![Jack's Flight Club — In-game screen](docs/images/game-screen.png)
 
-**Think you can route like an airline ops controller?**
+Play now: https://flight-club-game.netlify.app/
 
-Jack’s Flight Club is a fast, high-pressure aviation puzzle where each round drops you between two airports and a global alliance challenge. Your job: build a valid multi-leg route using alliance member airlines before your streak breaks.
+**The niche airline routing quiz game for frequent flyers and aviation fanatics.**
 
-## Why it’s fun
+Jack’s Flight Club is a browser game where each run gives you airport-to-airport routing challenges constrained by airline groups and alliances. You build valid multi-leg itineraries using real-world airport and airline references.
 
-- **Real-world flavor**: airport + airline catalogs grounded in real aviation data.
-- **Two play styles**: 
-  - **Normal** mode for fast strategic routing
-  - **Hard** mode for IATA-first purists
-- **Streak-based tension**: clear all 10 levels with no mistakes to climb the leaderboard.
-- **Competitive replayability**: keep your pilot name and chase better runs.
+## How it works
+
+- Each run has **10 levels**.
+- Difficulty increases as you progress.
+- Later levels use more niche and restrictive airline groupings, making route construction harder.
+- You can play in Normal or Hard mode (IATA-focused prompts).
+- Scores are recorded on a **global leaderboard** for competitive replay.
 
 ---
 
-## 📡 Data source credit (important)
+## 📡 Data source credit
 
 **Primary source:**
 - **airline-route-data (GitHub):** https://github.com/Jonty/airline-route-data
