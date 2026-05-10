@@ -463,7 +463,9 @@ a {
   justify-content: center;
   z-index: 100;
   backdrop-filter: blur(4px);
+  padding: max(12px, env(safe-area-inset-top)) 12px max(12px, env(safe-area-inset-bottom));
 }
+
 .modal {
   width: min(900px, 95vw);
   max-height: 92vh;
@@ -771,15 +773,16 @@ a {
 
   /* Modal: full screen on mobile. */
   .modal {
-    width: 100vw;
-    max-width: 100vw;
-    max-height: 100vh;
-    height: 100vh;
-    border-radius: 0;
+    width: 100%;
+    max-width: 100%;
+    max-height: calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+    border-radius: 10px;
     padding: 16px;
     gap: 12px;
   }
-  .modal-backdrop { padding: 0; }
+  .modal-backdrop {
+    padding: max(8px, env(safe-area-inset-top)) 8px max(8px, env(safe-area-inset-bottom));
+  }
   .modal__title { font-size: 20px; letter-spacing: 0.12em; }
   .modal__pts { font-size: 14px; }
 
