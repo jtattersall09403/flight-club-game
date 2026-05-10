@@ -13,6 +13,14 @@ export function LandingPage({ onStart }: Props) {
   const [showMatches, setShowMatches] = useState(false);
   const matchTimer = useRef<number | null>(null);
 
+  useEffect(() => {
+    api.health().catch((err) => {
+      if (import.meta.env.DEV) {
+        console.debug("API warmup failed", err);
+      }
+    });
+  }, []);
+
   // Debounced lookup of existing names that share a prefix.
   useEffect(() => {
     const q = username.trim();
@@ -130,7 +138,7 @@ export function LandingPage({ onStart }: Props) {
                 aria-pressed={mode === "hard"}
                 onClick={() => setMode("hard")}
               >
-                Hard (IATA only)
+                Hard
               </button>
             </div>
           </div>
