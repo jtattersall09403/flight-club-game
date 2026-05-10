@@ -36,7 +36,6 @@ export function LegsBuilder({
           a.iata,
           a.name ?? "",
           a.city ?? "",
-          a.country ?? "",
         ]
           .join(" ")
           .toLowerCase(),
