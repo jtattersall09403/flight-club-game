@@ -21,6 +21,8 @@ interface Props {
   onExit: () => void;
 }
 
+const ROUTE_PREVIEW_LIMIT = 10;
+
 export function GamePage({
   username,
   mode,
@@ -64,7 +66,7 @@ export function GamePage({
             a: q.a,
             b: q.b,
             mode,
-            k: 150,
+            k: ROUTE_PREVIEW_LIMIT,
           })
           .then((rr) => {
             if (!alive) return;
@@ -128,14 +130,14 @@ export function GamePage({
         if (score > 0) {
           api.submitScore(username, score, mode).catch(() => {});
         }
-        // Fetch the K shortest valid routings so the player can study them.
+        // Fetch top valid routings (ordered by fewest stops, then distance).
         try {
           const rr = await api.routes({
             group_id: question.group_id,
             a: question.a,
             b: question.b,
             mode,
-            k: 150,
+            k: ROUTE_PREVIEW_LIMIT,
           });
           setRoutes(rr);
         } catch {

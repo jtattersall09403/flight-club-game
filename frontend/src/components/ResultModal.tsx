@@ -6,7 +6,7 @@ import { Leaderboard } from "./Leaderboard";
 interface Props {
   question: Question;
   result: ValidateResult;
-  /** Top-K shortest routings by great-circle distance. Only present on
+  /** Top-K valid routings by fewest stops, then distance. Only present on
    *  incorrect answers. */
   routes?: RouteSummary[];
   totalScore: number;
@@ -30,12 +30,7 @@ export function ResultModal({
   const correct = result.valid;
   const [selectedRoute, setSelectedRoute] = useState(0);
 
-  const sortedRoutes = useMemo(() => {
-    if (!routes) return undefined;
-    return [...routes]
-      .sort((a, b) => a.stops - b.stops || a.total_km - b.total_km)
-      .slice(0, 10);
-  }, [routes]);
+  const sortedRoutes = useMemo(() => routes?.slice(0, 10), [routes]);
 
   const endpoints = [
     { iata: question.a, lat: question.a_lat, lon: question.a_lon },
