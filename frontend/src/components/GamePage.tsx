@@ -231,7 +231,7 @@ export function GamePage({
                   Min stops: <strong>{question.min_stops}</strong>
                   {minStopsDistanceKm !== null && (
                     <>
-                      {" "}(min-distance route: <strong>{Math.round(minStopsDistanceKm).toLocaleString()} km</strong>)
+                      {" "}({Math.round(minStopsDistanceKm * 0.621371).toLocaleString()} miles)
                     </>
                   )}
                 </span>
