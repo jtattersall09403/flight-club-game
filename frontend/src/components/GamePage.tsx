@@ -130,7 +130,7 @@ export function GamePage({
         if (score > 0) {
           api.submitScore(username, score, mode).catch(() => {});
         }
-        // Fetch the K shortest valid routings so the player can study them.
+        // Fetch top valid routings (ordered by fewest stops, then distance).
         try {
           const rr = await api.routes({
             group_id: question.group_id,
