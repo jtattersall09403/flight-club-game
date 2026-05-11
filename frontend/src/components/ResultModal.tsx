@@ -32,7 +32,9 @@ export function ResultModal({
 
   const sortedRoutes = useMemo(() => {
     if (!routes) return undefined;
-    return [...routes].sort((a, b) => a.stops - b.stops || a.total_km - b.total_km);
+    return [...routes]
+      .sort((a, b) => a.stops - b.stops || a.total_km - b.total_km)
+      .slice(0, 10);
   }, [routes]);
 
   const endpoints = [
