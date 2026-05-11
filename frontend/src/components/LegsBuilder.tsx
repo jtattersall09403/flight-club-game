@@ -132,6 +132,13 @@ export function LegsBuilder({
 
           return (
             <div key={`node-${nodeIndex}`}>
+              {nodeIndex === path.length - 1 && (
+                <div className="legs__actions legs__actions--inline">
+                  <button type="button" onClick={insertStopover} disabled={disabled}>
+                    + Add another stop
+                  </button>
+                </div>
+              )}
               <button
                 type="button"
                 className={`flight-plan__node ${
@@ -153,7 +160,7 @@ export function LegsBuilder({
               >
                 {isEmptyStopover ? (
                   <>
-                    <span className="flight-plan__iata">+ Add stopover</span>
+                    <span className="flight-plan__iata">Choose stopover</span>
                     <span className="flight-plan__meta">Search airport</span>
                   </>
                 ) : (
@@ -201,12 +208,6 @@ export function LegsBuilder({
             </div>
           );
         })}
-      </div>
-
-      <div className="legs__actions">
-        <button type="button" onClick={insertStopover} disabled={disabled}>
-          + Add another stop
-        </button>
       </div>
 
       {picker && (

@@ -502,6 +502,10 @@ a {
   display: flex;
   justify-content: flex-end;
 }
+.legs__actions--inline {
+  margin: 0 0 10px;
+  justify-content: flex-start;
+}
 
 .picker-backdrop {
   position: fixed;
