@@ -160,7 +160,7 @@ export function LegsBuilder({
               >
                 {isEmptyStopover ? (
                   <>
-                    <span className="flight-plan__iata">+ Add stopover</span>
+                    <span className="flight-plan__iata">Choose stopover</span>
                     <span className="flight-plan__meta">Search airport</span>
                   </>
                 ) : (
