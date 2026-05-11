@@ -40,6 +40,7 @@ export function GamePage({
   const [error, setError] = useState<string | null>(null);
   const [loadingQ, setLoadingQ] = useState(false);
   const [restartToken, setRestartToken] = useState(0);
+  const [minStopsDistanceKm, setMinStopsDistanceKm] = useState<number | null>(null);
 
   // Fetch a new question whenever the level changes.
   useEffect(() => {
@@ -50,11 +51,32 @@ export function GamePage({
     setHintUsed(false);
     setResult(null);
     setRoutes(null);
+    setMinStopsDistanceKm(null);
     api
       .question(level, mode)
       .then((q) => {
         if (!alive) return;
         setQuestion(q);
+
+        api
+          .routes({
+            group_id: q.group_id,
+            a: q.a,
+            b: q.b,
+            mode,
+            k: 150,
+          })
+          .then((rr) => {
+            if (!alive) return;
+            const minStopRoutes = rr.routes.filter((r) => r.stops === q.min_stops);
+            if (minStopRoutes.length === 0) return;
+            const km = Math.min(...minStopRoutes.map((r) => r.total_km));
+            setMinStopsDistanceKm(km);
+          })
+          .catch(() => {
+            // Keep min-stops value visible even if route summaries fail to load.
+          });
+
         // Seed two empty legs starting at A.
         setLegs([
           { src: q.a, dst: "", airline: "" },
@@ -113,7 +135,7 @@ export function GamePage({
             a: question.a,
             b: question.b,
             mode,
-            k: 11,
+            k: 150,
           });
           setRoutes(rr);
         } catch {
@@ -192,7 +214,7 @@ export function GamePage({
         {question && !loadingQ && (
           <>
             <div className="panel question">
-              <div className="question__group">Level {question.level}</div>
+              <div className="question__group">Level {level}</div>
               <div className="question__intro">
                 How can you get from…
               </div>
@@ -207,6 +229,11 @@ export function GamePage({
               <div className="question__meta">
                 <span>
                   Min stops: <strong>{question.min_stops}</strong>
+                  {minStopsDistanceKm !== null && (
+                    <>
+                      {" "}(min-distance route: <strong>{Math.round(minStopsDistanceKm).toLocaleString()} km</strong>)
+                    </>
+                  )}
                 </span>
                 <span>
                   Mode:{" "}
