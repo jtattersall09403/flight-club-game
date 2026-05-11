@@ -21,6 +21,8 @@ interface Props {
   onExit: () => void;
 }
 
+const ROUTE_PREVIEW_LIMIT = 10;
+
 export function GamePage({
   username,
   mode,
@@ -64,7 +66,7 @@ export function GamePage({
             a: q.a,
             b: q.b,
             mode,
-            k: 150,
+            k: ROUTE_PREVIEW_LIMIT,
           })
           .then((rr) => {
             if (!alive) return;
@@ -135,7 +137,7 @@ export function GamePage({
             a: question.a,
             b: question.b,
             mode,
-            k: 150,
+            k: ROUTE_PREVIEW_LIMIT,
           });
           setRoutes(rr);
         } catch {
