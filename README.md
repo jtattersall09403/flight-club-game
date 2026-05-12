@@ -1,8 +1,8 @@
 # ✈️ Jack's Flight Club
 
-![Jack's Flight Club — Landing screen](docs/images/landing-screen.png)
+![Jack's Flight Club — Landing screen](docs/images/landing-screen.jpg)
 
-![Jack's Flight Club — In-game screen](docs/images/game-screen.png)
+![Jack's Flight Club — In-game screen](docs/images/in-game-screen.jpg)
 
 Play now: https://flight-club-game.netlify.app/
 
